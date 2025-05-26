@@ -5,11 +5,14 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.deepPurple, Colors.purple.shade300],
+            colors: [colors.primaryContainer, colors.secondaryContainer],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -26,28 +29,24 @@ class WelcomePage extends StatelessWidget {
                   Icon(
                     Icons.account_circle, // Placeholder for the logo
                     size: 100,
-                    color: Colors.white,
+                    color: colors.onPrimaryContainer,
                   ),
                   const SizedBox(height: 10),
-                  const Text(
+                  Text(
                     'Name.App',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                    style: textTheme.displayMedium?.copyWith(color: colors.onPrimaryContainer, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 100),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.deepPurple,
+                      backgroundColor: colors.surface,
+                      foregroundColor: colors.onSurface,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      textStyle: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
                       Navigator.pushNamed(context, '/signup'); // Navigate to SignUpPage
@@ -61,9 +60,9 @@ class WelcomePage extends StatelessWidget {
                       // For now, let's assume it navigates to SignUpPage as well or a dedicated LoginPage
                        Navigator.pushNamed(context, '/signup'); // Or a dedicated login page if you create one
                     },
-                    child: const Text(
+                    child: Text(
                       'I already have an account',
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
+                      style: textTheme.bodyMedium?.copyWith(color: colors.onPrimaryContainer.withOpacity(0.7)),
                     ),
                   ),
                 ],

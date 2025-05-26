@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:dpm/presentation/pages/auth/signup_page.dart';
 import 'package:dpm/presentation/pages/auth/welcome_page.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,15 +9,23 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'DPM App',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        colorSchemeSeed: Colors.deepPurple,
+        useMaterial3: true, // Habilita o Material Design 3
+        brightness: Brightness.light, // Define o tema claro como padrão
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      darkTheme: ThemeData(
+        colorSchemeSeed: Colors.deepPurple,
+        useMaterial3: true,
+        brightness: Brightness.dark, // Define o tema escuro
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      themeMode: ThemeMode.system, // Usa o tema do sistema (claro ou escuro)
       initialRoute: '/',
       routes: {
         '/': (context) => const WelcomePage(),

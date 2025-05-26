@@ -14,11 +14,14 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.deepPurple, Colors.purple.shade300],
+            colors: [colors.primaryContainer, colors.secondaryContainer],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -35,17 +38,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   Icon(
                     Icons.account_circle, // Placeholder for the logo
                     size: 80,
-                    color: Colors.white,
+                    color: colors.onPrimaryContainer,
                   ),
                   const SizedBox(height: 20),
                   Text(
                     'hello!',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                    style: textTheme.displaySmall?.copyWith(color: colors.onPrimaryContainer, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 30),
                   Form(
@@ -55,27 +54,29 @@ class _SignUpPageState extends State<SignUpPage> {
                         _buildTextField(
                           hintText: 'Username',
                           prefixIcon: Icons.person_outline,
+                          colors: colors,
                         ),
                         const SizedBox(height: 16),
                         _buildTextField(
                           hintText: 'Email',
                           prefixIcon: Icons.email_outlined,
                           keyboardType: TextInputType.emailAddress,
+                          colors: colors,
                         ),
                         const SizedBox(height: 16),
-                        _buildPasswordField(),
+                        _buildPasswordField(colors),
                         const SizedBox(height: 20),
-                        _buildTermsAndConditionsCheckbox(),
+                        _buildTermsAndConditionsCheckbox(colors, textTheme),
                         const SizedBox(height: 30),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.deepPurple,
+                            backgroundColor: colors.surface,
+                            foregroundColor: colors.onSurface,
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            textStyle: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
@@ -94,31 +95,31 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  const Row(
+                  Row(
                     children: <Widget>[
-                      Expanded(child: Divider(color: Colors.white70)),
+                      Expanded(child: Divider(color: colors.outlineVariant)),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text('or', style: TextStyle(color: Colors.white70)),
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text('or', style: textTheme.bodySmall?.copyWith(color: colors.onSurfaceVariant)),
                       ),
-                      Expanded(child: Divider(color: Colors.white70)),
+                      Expanded(child: Divider(color: colors.outlineVariant)),
                     ],
                   ),
                   const SizedBox(height: 20),
-                  const Text(
+                  Text(
                     'Log in with your social media account',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 14),
+                    style: textTheme.bodyMedium?.copyWith(color: colors.onPrimaryContainer),
                   ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      _buildSocialButton(Colors.red),
+                      _buildSocialButton(Colors.red, colors),
                       const SizedBox(width: 20),
-                      _buildSocialButton(Colors.yellow),
+                      _buildSocialButton(Colors.yellow, colors),
                       const SizedBox(width: 20),
-                      _buildSocialButton(Colors.blue),
+                      _buildSocialButton(Colors.blue, colors),
                     ],
                   ),
                 ],
@@ -136,25 +137,26 @@ class _SignUpPageState extends State<SignUpPage> {
     TextInputType? keyboardType,
     bool obscureText = false,
     Widget? suffixIcon,
+    required ColorScheme colors,
   }) {
     return TextFormField(
       keyboardType: keyboardType,
       obscureText: obscureText,
-      style: const TextStyle(color: Colors.black87),
+      style: TextStyle(color: colors.onSurface),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.grey.shade600),
-        prefixIcon: Icon(prefixIcon, color: Colors.deepPurple),
+        hintStyle: TextStyle(color: colors.onSurfaceVariant),
+        prefixIcon: Icon(prefixIcon, color: colors.primary),
         suffixIcon: suffixIcon,
         filled: true,
-        fillColor: Colors.white.withOpacity(0.9),
+        fillColor: colors.surfaceVariant.withOpacity(0.5),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
-          borderSide: const BorderSide(color: Colors.deepPurple, width: 2),
+          borderSide: BorderSide(color: colors.primary, width: 2),
         ),
         contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       ),
@@ -170,18 +172,18 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildPasswordField() {
+  Widget _buildPasswordField(ColorScheme colors) {
     return TextFormField(
       obscureText: !_isPasswordVisible,
-      style: const TextStyle(color: Colors.black87),
+      style: TextStyle(color: colors.onSurface),
       decoration: InputDecoration(
         hintText: 'Password',
-        hintStyle: TextStyle(color: Colors.grey.shade600),
-        prefixIcon: const Icon(Icons.lock_outline, color: Colors.deepPurple),
+        hintStyle: TextStyle(color: colors.onSurfaceVariant),
+        prefixIcon: Icon(Icons.lock_outline, color: colors.primary),
         suffixIcon: IconButton(
           icon: Icon(
             _isPasswordVisible ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-            color: Colors.deepPurple,
+            color: colors.primary,
           ),
           onPressed: () {
             setState(() {
@@ -190,14 +192,14 @@ class _SignUpPageState extends State<SignUpPage> {
           },
         ),
         filled: true,
-        fillColor: Colors.white.withOpacity(0.9),
+        fillColor: colors.surfaceVariant.withOpacity(0.5),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
-          borderSide: const BorderSide(color: Colors.deepPurple, width: 2),
+          borderSide: BorderSide(color: colors.primary, width: 2),
         ),
         contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       ),
@@ -213,7 +215,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildTermsAndConditionsCheckbox() {
+  Widget _buildTermsAndConditionsCheckbox(ColorScheme colors, TextTheme textTheme) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -224,29 +226,29 @@ class _SignUpPageState extends State<SignUpPage> {
               _agreeToTerms = value ?? false;
             });
           },
-          checkColor: Colors.deepPurple,
-          activeColor: Colors.white,
-          side: const BorderSide(color: Colors.white),
+          checkColor: colors.onPrimary,
+          activeColor: colors.primary,
+          side: BorderSide(color: colors.onPrimaryContainer),
         ),
-        const Text(
+        Text(
           'I agree to the terms and conditions',
-          style: TextStyle(color: Colors.white, fontSize: 12),
+          style: textTheme.bodySmall?.copyWith(color: colors.onPrimaryContainer),
         ),
       ],
     );
   }
 
-  Widget _buildSocialButton(Color color) {
+  Widget _buildSocialButton(Color color, ColorScheme colors) {
     return Container(
       width: 50,
       height: 50,
       decoration: BoxDecoration(
         color: color,
-        shape: BoxShape.rectangle, // Changed to rectangle as per image
-        borderRadius: BorderRadius.circular(8), // Added border radius
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(8),
       ),
       child: IconButton(
-        icon: const Icon(Icons.login, color: Colors.white), // Placeholder icon
+        icon: Icon(Icons.login, color: colors.onInverseSurface), // Adjusted for better contrast with button color
         onPressed: () {
           // Handle social login
         },
