@@ -1,8 +1,12 @@
 import 'package:dpm/presentation/pages/auth/signup_page.dart';
 import 'package:dpm/presentation/pages/auth/welcome_page.dart';
+import 'package:firebase_core/firebase_core.dart'; // Adicione esta linha
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
+  // Modifique para async
+  WidgetsFlutterBinding.ensureInitialized(); // Adicione esta linha
+  // await Firebase.initializeApp(); // Adicione esta linha
   runApp(const MyApp());
 }
 
@@ -13,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'DPM App',
+      debugShowCheckedModeBanner: false, // Adicione ou modifique esta linha
       theme: ThemeData(
         colorSchemeSeed: Colors.deepPurple,
         useMaterial3: true, // Habilita o Material Design 3

@@ -44,7 +44,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   Text(
                     'hello!',
                     textAlign: TextAlign.center,
-                    style: textTheme.displaySmall?.copyWith(color: colors.onPrimaryContainer, fontWeight: FontWeight.bold),
+                    style: textTheme.displaySmall?.copyWith(
+                        color: colors.onPrimaryContainer,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 30),
                   Form(
@@ -76,13 +78,16 @@ class _SignUpPageState extends State<SignUpPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            textStyle: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                            textStyle: textTheme.titleMedium
+                                ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               if (!_agreeToTerms) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Please agree to the terms and conditions')),
+                                  const SnackBar(
+                                      content: Text(
+                                          'Please agree to the terms and conditions')),
                                 );
                                 return;
                               }
@@ -100,7 +105,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       Expanded(child: Divider(color: colors.outlineVariant)),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text('or', style: textTheme.bodySmall?.copyWith(color: colors.onSurfaceVariant)),
+                        child: Text('or',
+                            style: textTheme.bodySmall
+                                ?.copyWith(color: colors.onSurfaceVariant)),
                       ),
                       Expanded(child: Divider(color: colors.outlineVariant)),
                     ],
@@ -109,7 +116,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   Text(
                     'Log in with your social media account',
                     textAlign: TextAlign.center,
-                    style: textTheme.bodyMedium?.copyWith(color: colors.onPrimaryContainer),
+                    style: textTheme.bodyMedium
+                        ?.copyWith(color: colors.onPrimaryContainer),
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -149,7 +157,8 @@ class _SignUpPageState extends State<SignUpPage> {
         prefixIcon: Icon(prefixIcon, color: colors.primary),
         suffixIcon: suffixIcon,
         filled: true,
-        fillColor: colors.surfaceVariant.withOpacity(0.5),
+        fillColor: colors.surfaceContainerHighest.withOpacity(
+            0.5), // Alterado de surfaceVariant para surfaceContainerHighest
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide.none,
@@ -158,7 +167,8 @@ class _SignUpPageState extends State<SignUpPage> {
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(color: colors.primary, width: 2),
         ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -182,7 +192,9 @@ class _SignUpPageState extends State<SignUpPage> {
         prefixIcon: Icon(Icons.lock_outline, color: colors.primary),
         suffixIcon: IconButton(
           icon: Icon(
-            _isPasswordVisible ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+            _isPasswordVisible
+                ? Icons.visibility_off_outlined
+                : Icons.visibility_outlined,
             color: colors.primary,
           ),
           onPressed: () {
@@ -192,7 +204,8 @@ class _SignUpPageState extends State<SignUpPage> {
           },
         ),
         filled: true,
-        fillColor: colors.surfaceVariant.withOpacity(0.5),
+        fillColor: colors.surfaceContainerHighest.withOpacity(
+            0.5), // Alterado de surfaceVariant para surfaceContainerHighest
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide.none,
@@ -201,7 +214,8 @@ class _SignUpPageState extends State<SignUpPage> {
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(color: colors.primary, width: 2),
         ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -215,7 +229,8 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildTermsAndConditionsCheckbox(ColorScheme colors, TextTheme textTheme) {
+  Widget _buildTermsAndConditionsCheckbox(
+      ColorScheme colors, TextTheme textTheme) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -232,7 +247,8 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         Text(
           'I agree to the terms and conditions',
-          style: textTheme.bodySmall?.copyWith(color: colors.onPrimaryContainer),
+          style:
+              textTheme.bodySmall?.copyWith(color: colors.onPrimaryContainer),
         ),
       ],
     );
@@ -248,7 +264,9 @@ class _SignUpPageState extends State<SignUpPage> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: IconButton(
-        icon: Icon(Icons.login, color: colors.onInverseSurface), // Adjusted for better contrast with button color
+        icon: Icon(Icons.login,
+            color: colors
+                .onInverseSurface), // Adjusted for better contrast with button color
         onPressed: () {
           // Handle social login
         },
