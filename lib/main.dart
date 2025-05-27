@@ -1,7 +1,9 @@
+import 'package:dpm/core/localization/app_localizations.dart'; // Adicione esta linha
 import 'package:dpm/presentation/pages/auth/signup_page.dart';
 import 'package:dpm/presentation/pages/auth/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart'; // Adicione esta linha
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart'; // Adicione esta linha
 
 Future<void> main() async {
   // Modifique para async
@@ -16,7 +18,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'DPM App',
+      title:
+          'DPM App', // Este título pode ser localizado se necessário, mas geralmente é para a loja de aplicativos
       debugShowCheckedModeBanner: false, // Adicione ou modifique esta linha
       theme: ThemeData(
         colorSchemeSeed: Colors.deepPurple,
@@ -31,6 +34,21 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       themeMode: ThemeMode.system, // Usa o tema do sistema (claro ou escuro)
+
+      // Configuração de Localização
+      localizationsDelegates: const [
+        AppLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''), // Inglês
+        Locale('es', ''), // Espanhol
+        Locale('pt', ''), // Português
+      ],
+      // Fim da Configuração de Localização
+
       initialRoute: '/',
       routes: {
         '/': (context) => const WelcomePage(),

@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations: # Adicionado para localização
+    sdk: flutter         # Adicionado para localização
   firebase_core: ^2.32.0 # Adicione esta linha
 
 
