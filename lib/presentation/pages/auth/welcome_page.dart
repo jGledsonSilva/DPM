@@ -86,7 +86,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       child: Column(
                         children: [
                           Image.asset(
-                            'assets/images/dpm_logo.png', // Caminho do logo
+                            'assets/images/logo.png', // Caminho do logo
                             height: screenSize.height * 0.15, // Tamanho do logo
                           ),
                           const SizedBox(height: 8),
