@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:dpm/screens/signup_screen.dart';
 import 'package:dpm/widgets/custom_scaffold.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 import '../theme/theme.dart';
 
@@ -14,7 +15,47 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final _formSignInKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool rememberPassword = true;
+
+  Future<void> _signIn() async {
+    if (_formSignInKey.currentState!.validate()) {
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+
+        // Se o login for bem-sucedido, o usuário será redirecionado automaticamente
+        print('Login bem-sucedido!✅');
+        // A navegação será tratada pelo AuthGate
+      } on FirebaseAuthException catch (e) {
+        String message;
+        if (e.code == 'user-not-found') {
+          message = 'Nenhum usuário encontrado para este e-mail.';
+        } else if (e.code == 'wrong-password') {
+          message = 'Senha incorreta fornecida para este usuário.';
+        } else {
+          message = 'Ocorreu um erro. Por favor, tente novamente.';
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -55,6 +96,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: 40.0,
                       ),
                       TextFormField(
+                        controller: _emailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Por favor, insira o email';
@@ -85,6 +127,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: 25.0,
                       ),
                       TextFormField(
+                        controller: _passwordController,
                         obscureText: true,
                         obscuringCharacter: '*',
                         validator: (value) {
@@ -155,23 +198,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
-                            if (_formSignInKey.currentState!.validate() &&
-                                rememberPassword) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Processando dados'),
-                                ),
-                              );
-                            } else if (!rememberPassword) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        'Por favor, concorde com os termos')),
-                              );
-                            }
-                          },
-                          child: const Text('Inscrever-se'),
+                          onPressed: _signIn,
+                          child: const Text('Entrar'),
                         ),
                       ),
                       const SizedBox(
