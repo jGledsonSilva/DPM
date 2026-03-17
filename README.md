@@ -51,8 +51,3 @@ O DPM visa fornecer uma solução completa para o gerenciamento de energia resid
 *   Integração com sistemas de painéis solares.
 *   Manutenção do hardware físico das tomadas inteligentes.
 *   Aplicação destinada a uso industrial ou comercial de grande porte.
-
-## Gestão do Projeto
-
-*   **Gestor do Projeto:** José Gledson da Silva Oliveira (gledson.silva60@aluno.ifce.edu.br)
-*   **Patrocinador:** Henrique Leitão (henriqueleitao@ifce.edu.br)
